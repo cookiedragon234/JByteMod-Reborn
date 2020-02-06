@@ -22,7 +22,11 @@ public class Discord {
 
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
-                discordRPC.Discord_RunCallbacks();
+                if (JByteMod.ops.get("discord_state").getBoolean()) {
+                    discordRPC.Discord_RunCallbacks();
+                } else {
+                    discordRPC.Discord_ClearPresence();
+                }
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ignored) {
